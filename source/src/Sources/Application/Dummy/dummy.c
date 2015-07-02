@@ -49,7 +49,7 @@ TASKSTRUCT *rps_TaskPtr;
 T_UBYTE rub_cnt=0;
 T_UBYTE rub_flag_2;
 T_UBYTE rub_flag;
-T_UBYTE rub_TOP_COUNT=11;
+
 /*********************************************************************************
 * Declaration of module wide FUNCTIONs 
 **********************************************************************************/
@@ -78,24 +78,36 @@ void delay_pinch(void);
 /****************************************************************************************************/
 
 
-void Task_100ms(void)
+/* Exported functions */
+/* ------------------ */
+/**************************************************************
+ *  Name                 :	Task_10ms
+ *  Description          :  behevior of window lifter
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [No]
+ **************************************************************/
+
+void Task_10ms(void)
 
 {
 
-static T_UWORD lub_U16Counter = 0;
-static T_UWORD lub_U16Counter_1 = 0;
+#define rub_TOP_COUNT 11
+
+static T_UWORD luw_Counter = 0;
+static T_UWORD luw_Counter_1 = 0;
     
-    lub_U16Counter++;
-    lub_U16Counter_1++;
+    luw_Counter++;
+    luw_Counter_1++;
     
-   if(lub_U16Counter_1==rub_TOP_COUNT)
+   if(luw_Counter_1==rub_TOP_COUNT)
    {
-   	lub_U16Counter_1=0;
+   	luw_Counter_1=0;
    }
   
-   if(lub_U16Counter==rub_TOP_COUNT)
+   if(luw_Counter==rub_TOP_COUNT)
    {
-   	lub_U16Counter=0;
+   	luw_Counter=0;
    }
     
 
@@ -116,10 +128,10 @@ if( PUSH_PRESSED(P2_DOWN) && PUSH_PRESSED(P1_UP) )
 		}
 		
 		
-		if( PUSH_PRESSED(P1_UP) && lub_U16Counter_1==5 ) 
+		if( PUSH_PRESSED(P1_UP) && luw_Counter_1==5 ) 
     {
     	
-    		lub_U16Counter_1=0;
+    		luw_Counter_1=0;
     		rub_flag_2=e_dummy_1_2;
     		LED_ON(LED_UP);
     		LED_OFF(LED_DOWN);	
@@ -128,7 +140,7 @@ if( PUSH_PRESSED(P2_DOWN) && PUSH_PRESSED(P1_UP) )
     
     }
 		
-if( PUSH_PRESSED(P1_UP) && lub_U16Counter_1==10 )
+if( PUSH_PRESSED(P1_UP) && luw_Counter_1==10 )
     {
     
     
@@ -145,9 +157,9 @@ if( PUSH_PRESSED(P1_UP) && lub_U16Counter_1==10 )
 	
 
 		
-if( PUSH_PRESSED(P2_DOWN) && lub_U16Counter==10 )
+if( PUSH_PRESSED(P2_DOWN) && luw_Counter==10 )
     {
-    	lub_U16Counter=0;
+    	luw_Counter=0;
     	LED_ON(LED_DOWN);
     	LED_OFF(LED_UP);	
     	anti_pinch();
@@ -156,7 +168,7 @@ if( PUSH_PRESSED(P2_DOWN) && lub_U16Counter==10 )
     		
     		
 		}
-if( PUSH_PRESSED(P2_DOWN) && lub_U16Counter==5 )
+if( PUSH_PRESSED(P2_DOWN) && luw_Counter==5 )
     {
     	
     	
@@ -177,12 +189,25 @@ if( PUSH_PRESSED(P2_DOWN) && lub_U16Counter==5 )
 
 TASKSTRUCT function_table_def[]={
 
-	{ 0, 20,/*200*/    &Task_100ms },
-//	{ 0, 50,    &Task_10ms },
+	{ 0, 20,   &Task_10ms },
+
 
 };
 
 
+/* Exported functions */
+/* ------------------ */
+/**************************************************************
+ *  Name                 : 	dummy_500us
+ *  Description          :  This function generate the time base
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [yes]
+ *  
+ *  Any modification may could cause problems in the time base
+ *
+ **************************************************************/
+ 
 void dummy_500us(void)
 {
 	static T_UBYTE i=0;
@@ -198,6 +223,19 @@ void dummy_500us(void)
 }
 
 
+/* Exported functions */
+/* ------------------ */
+/**************************************************************
+ *  Name                 :	dummy_endeles_loop
+ *  Description          :	This function is responsible for enable the pointer to 
+ *                          TASKSTRUCT so that function generate the time base.
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [yes]
+ *
+ *  Any modification here, it may not work completely 
+ *   
+ **************************************************************/
 
 
 void dummy_endless_loop(void)
@@ -210,7 +248,18 @@ void dummy_endless_loop(void)
 }
 
 
-
+/* Private functions */
+/* ----------------- */
+/**************************************************************
+ *  Name                 :  anti_pinch
+ *  Description          :	this function is a requiriment for 
+ *							prevent accidents also open the window
+ * 							automatically
+ *  Parameters           :  [Void, Void, Void / Void]
+ *  Return               :
+ *  Critical/explanation :    [NO]
+ **************************************************************/
+ 
 void anti_pinch(void)
 {
 while(rub_flag==e_dummy_1){
@@ -404,6 +453,16 @@ while(rub_flag==e_dummy_1){
 
 }
 
+/* Private functions */
+/* ----------------- */
+/**************************************************************
+ *  Name                 :  auto_up
+ *  Description          :  The movement is up until get totality 
+ *							closed automatically
+ *  Parameters           :  [Void, Void, Void / Void]
+ *  Return               :
+ *  Critical/explanation :    [NO]
+ **************************************************************/
 
 }
 
@@ -734,7 +793,16 @@ delay_pinch();
 }
 
 }
-
+/* Private functions */
+/* ----------------- */
+/**************************************************************
+ *  Name                 : 	Manual_mode
+ *  Description          :	This function is the requirimet open/close
+ *							the window 
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [No]
+ **************************************************************/
 void manual_mode(void)
 {
 if(rub_cnt==1)
@@ -887,6 +955,15 @@ if(rub_cnt==1)
 	}
 }
 
+/* Private functions */
+/* ----------------- */
+/**************************************************************
+ *  Name                 : 	delay
+ *  Description          :	this function is for time transition
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [No]
+ **************************************************************/
 void delay(void)
 {
 /*	static T_UWORD delay_Counter = 0;
@@ -907,6 +984,16 @@ void delay(void)
 	}
 	
 }
+/* Private functions */
+/* ----------------- */
+/**************************************************************
+ *  Name                 :  delay_pinch
+ *  Description          :	this is a special function and only
+ *							work in anti_pinch
+ *  Parameters           :  [void, void, void / void]
+ *  Return               :
+ *  Critical/explanation :    [No]
+ **************************************************************/
 void delay_pinch(void)
 {
 /*	static T_UWORD delay_Counter = 0;

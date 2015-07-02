@@ -46,22 +46,14 @@ typedef struct{
 
 
 
-
-
- enum dummy_2
+ enum dummy
 {
+	e_dummy_1,
+	e_dummy_2,
 	e_dummy_1_2,
 	e_dummy_2_2
 };
 
-
-
-
-enum dummy
-{
-	e_dummy_1,
-	e_dummy_2
-};
 
 
 #endif /* _DUMMY_H */
