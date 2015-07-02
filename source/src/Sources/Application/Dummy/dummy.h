@@ -1,42 +1,41 @@
+/*============================================================================*/
+/*                        SV C BC SOFTWARE GROUP                              */
+/*============================================================================*/
+/*                        OBJECT SPECIFICATION                                */
+/*============================================================================*
+* C Include:        dummy.h
+* Instance:         RPL_1
+* %version:         1 %
+* %created_by:      Edgar Mosqueda
+* %date_created:    Fri Feb 28 13:41:01 2003 %
+*=============================================================================*/
+/* DESCRIPTION : Header file template                                         */
+/*============================================================================*/
+/* FUNCTION COMMENT : contains only symbols which are exported to internal    */
+/* platform modules. This will not be delivered with the library              */
+/*                                                                            */
+/*============================================================================*/
+/*                               OBJECT HISTORY                               */
+/*============================================================================*/
+/*  REVISION |   DATE      |                               |      AUTHOR      */
+/*----------------------------------------------------------------------------*/
+/*  1.0      | 02/07/2015  | SAR/SIF/SCN_xxx               | Edgar Mosqueda   */
+/* Integration under Continuus CM                                             */
+/*============================================================================*/
 
-
-/*******************************************************************************/
-/**
-\file       dummy.h
-\brief      Dummy Functions
-\author     Francisco Martinez
-\version    1.0
-\date       04/04/2014
-*/
-/*******************************************************************************/
 
 #ifndef _DUMMY_H        /*prevent duplicated includes*/
 #define _DUMMY_H
 
-/*-- Includes ----------------------------------------------------------------*/
-
-/** Core modules */
-/** Variable types and common definitions */
-
+/* Includes */
+/* -------- */
 #include "typedefs.h"
 
-/*-- Variables ---------------------------------------------------------------*/
+/* Exported types and constants */
+/* ---------------------------- */
 
-/*-- Types Definitions -------------------------------------------------------*/
-
-/*-- Defines -----------------------------------------------------------------*/
-
-
-/*-- Function Prototypes -----------------------------------------------------*/
-
-void dummy_500us(void);
-void dummy_endless_loop(void);
-void Task_100ms(void);
-void delay(void);
-void manual_mode(void);
-void anti_pinch(void);
-void auto_up(void);
-void delay_pinch(void);
+/* Types definition */
+/* typedef */
 
 typedef struct{
 	T_UWORD  ruw_Counter;
@@ -44,15 +43,57 @@ typedef struct{
 	tCallbackFunction   cpfu_PerFunct;
 }TASKSTRUCT;
 
-
-
- enum dummy
+typedef enum 
 {
 	e_dummy_1,
 	e_dummy_2,
-	e_dummy_1_2,
-	e_dummy_2_2
-};
+	e_dummy_3,
+	e_dummy_4
+	
+}e_dummy;
+
+/*==================================================*/ 
+/* Declaration of exported constants                */
+/*==================================================*/ 
+/* BYTE constants */
+
+
+/* WORD constants */
+
+
+/* LONG and STRUCTURE constants */
+
+
+
+/*======================================================*/ 
+/* Definition of RAM variables                          */
+/*======================================================*/ 
+/* BYTES */
+
+
+/* WORDS */
+
+
+/* LONGS and STRUCTURES */
+
+
+/*======================================================*/ 
+/* close variable declaration sections                  */
+/*======================================================*/ 
+
+/* Exported functions prototypes and macros */
+/* ---------------------------------------- */
+
+/* Functions prototypes */
+
+void dummy_500us(void);
+void dummy_endless_loop(void);
+void Task_10ms(void);
+
+/* Functions macros */
+
+
+/* Exported defines */
 
 
 

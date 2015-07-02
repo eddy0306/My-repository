@@ -24,58 +24,68 @@
 /*============================================================================*/
 
 
-/*******************************************************************************
-* Include files
-********************************************************************************/
+/* Includes */
+/* -------- */
 
-/** Core modules */
-/** Variable types and common definitions */
 #include "typedefs.h"
-
-/** Own headers */
 #include "dummy.h"
-
-/* GPIO routines prototypes */ 
 #include "GPIO.h"
 
 /** Used modules */
+
 TASKSTRUCT *rps_TaskPtr;
 
+/* Functions macros, constants, types and datas         */
+/* ---------------------------------------------------- */
+/* Functions macros */
 
 
-/********************************************************************************
-* Definition of module wide VARIABLEs 
-*********************************************************************************/
+
+/*==================================================*/ 
+/* Definition of constants                          */
+/*==================================================*/ 
+/* BYTE constants */
+
+
+/* WORD constants */
+
+
+/* LONG and STRUCTURE constants */
+
+/*======================================================*/ 
+/* Definition of RAM variables                          */
+/*======================================================*/ 
+/* BYTE RAM variables */
+
 T_UBYTE rub_cnt=0;
-T_UBYTE rub_flag_2;
-T_UBYTE rub_flag;
+T_UBYTE rub_flag_aUP;
+T_UBYTE rub_flag_anP;
 
-/*********************************************************************************
-* Declaration of module wide FUNCTIONs 
-**********************************************************************************/
+/* WORD RAM variables */
+
+
+/* LONG and STRUCTURE RAM variables */
+
+/*======================================================*/ 
+/* close variable declaration sections                  */
+/*======================================================*/ 
+
+/* Private defines */
+
+
+/* Private functions prototypes */
+/* ---------------------------- */
+
 void delay(void);
 void manual_mode(void);
 void anti_pinch(void);
 void auto_up(void);
 void delay_pinch(void);
-/**********************************************************************************
-* Definition of module wide MACROs / #DEFINE-CONSTANTs 
-***********************************************************************************/
 
-/**********************************************************************************
-* Declaration of module wide TYPEs 
-***********************************************************************************/
-
-/**********************************************************************************
-* Definition of module wide (CONST-) CONSTANTs 
-***********************************************************************************/
-
-/***********************************************************************************
-* Code of module wide FUNCTIONS
-************************************************************************************/
+/* Exported functions prototypes */
+/* ----------------------------- */
 
 
-/****************************************************************************************************/
 
 
 /* Exported functions */
@@ -92,7 +102,9 @@ void Task_10ms(void)
 
 {
 
-#define rub_TOP_COUNT 11
+#define lu_TOP_COUNT 11u
+#define lu_less500ms 5u
+#define lu_more500ms 10u
 
 static T_UWORD luw_Counter = 0;
 static T_UWORD luw_Counter_1 = 0;
@@ -100,12 +112,12 @@ static T_UWORD luw_Counter_1 = 0;
     luw_Counter++;
     luw_Counter_1++;
     
-   if(luw_Counter_1==rub_TOP_COUNT)
+   if(luw_Counter_1==lu_TOP_COUNT)
    {
    	luw_Counter_1=0;
    }
   
-   if(luw_Counter==rub_TOP_COUNT)
+   if(luw_Counter==lu_TOP_COUNT)
    {
    	luw_Counter=0;
    }
@@ -117,7 +129,7 @@ if(PUSH_PRESSED(P3_PUSH) )
 LED_OFF(LED_DOWN);
 LED_OFF(LED_UP);
 anti_pinch();
-rub_flag=e_dummy_1;
+rub_flag_anP=e_dummy_1;
 
 
 }
@@ -128,11 +140,11 @@ if( PUSH_PRESSED(P2_DOWN) && PUSH_PRESSED(P1_UP) )
 		}
 		
 		
-		if( PUSH_PRESSED(P1_UP) && luw_Counter_1==5 ) 
+		if( PUSH_PRESSED(P1_UP) && luw_Counter_1==lu_less500ms ) 
     {
     	
     		luw_Counter_1=0;
-    		rub_flag_2=e_dummy_1_2;
+    		rub_flag_aUP=e_dummy_3;
     		LED_ON(LED_UP);
     		LED_OFF(LED_DOWN);	
 			rub_cnt--;
@@ -140,14 +152,14 @@ if( PUSH_PRESSED(P2_DOWN) && PUSH_PRESSED(P1_UP) )
     
     }
 		
-if( PUSH_PRESSED(P1_UP) && luw_Counter_1==10 )
+if( PUSH_PRESSED(P1_UP) && luw_Counter_1==lu_more500ms )
     {
     
     
     	LED_ON(LED_UP);
     	LED_OFF(LED_DOWN);	
     	auto_up();
-		rub_flag_2=e_dummy_2_2;	
+		rub_flag_aUP=e_dummy_4;	
     
     	
     		
@@ -157,22 +169,22 @@ if( PUSH_PRESSED(P1_UP) && luw_Counter_1==10 )
 	
 
 		
-if( PUSH_PRESSED(P2_DOWN) && luw_Counter==10 )
+if( PUSH_PRESSED(P2_DOWN) && luw_Counter==lu_more500ms )
     {
     	luw_Counter=0;
     	LED_ON(LED_DOWN);
     	LED_OFF(LED_UP);	
     	anti_pinch();
-		rub_flag=e_dummy_1;
+		rub_flag_anP=e_dummy_1;
     	
     		
     		
 		}
-if( PUSH_PRESSED(P2_DOWN) && luw_Counter==5 )
+if( PUSH_PRESSED(P2_DOWN) && luw_Counter==lu_less500ms )
     {
     	
     	
-    	rub_flag=e_dummy_2;
+    	rub_flag_anP=e_dummy_2;
     	LED_ON(LED_DOWN);
     	LED_OFF(LED_UP);	
     	rub_cnt++;
@@ -262,7 +274,7 @@ void dummy_endless_loop(void)
  
 void anti_pinch(void)
 {
-while(rub_flag==e_dummy_1){
+while(rub_flag_anP==e_dummy_1){
 
 
 		
@@ -442,7 +454,7 @@ while(rub_flag==e_dummy_1){
 			LED_ON(LED8);
     		LED_ON(LED9);
     		LED_ON(LED10);
-    		rub_flag=e_dummy_2;
+    		rub_flag_anP=e_dummy_2;
     		rub_cnt=11;
     		
     	delay();
@@ -468,7 +480,7 @@ while(rub_flag==e_dummy_1){
 
 void auto_up(void)
 {
-while(rub_flag_2==e_dummy_1_2){
+while(rub_flag_aUP==e_dummy_3){
 	
 	
 switch(rub_cnt)
@@ -481,7 +493,7 @@ switch(rub_cnt)
 			LED_OFF(LED_DOWN);
 			LED_OFF(LED_UP);
 			anti_pinch();
-			rub_flag=e_dummy_1;
+			rub_flag_anP=e_dummy_1;
 			delay_pinch();
 
 			}
@@ -511,7 +523,7 @@ switch(rub_cnt)
 			LED_OFF(LED_DOWN);
 			LED_OFF(LED_UP);
 			anti_pinch();
-			rub_flag=e_dummy_1;
+			rub_flag_anP=e_dummy_1;
 			delay_pinch();
 			}
 			else
@@ -539,7 +551,7 @@ switch(rub_cnt)
 			LED_OFF(LED_DOWN);
 			LED_OFF(LED_UP);
 			anti_pinch();
-			rub_flag=e_dummy_1;
+			rub_flag_anP=e_dummy_1;
 			delay_pinch();
 			}
 			
@@ -567,7 +579,7 @@ switch(rub_cnt)
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 			}
 			else
@@ -598,7 +610,7 @@ switch(rub_cnt)
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 			}
 			else
@@ -625,8 +637,8 @@ switch(rub_cnt)
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
-delay_pinch();
+				rub_flag_anP=e_dummy_1;
+				delay_pinch();
 			}
 			else
 			{
@@ -652,7 +664,7 @@ delay_pinch();
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 
 			}
@@ -680,7 +692,7 @@ delay_pinch();
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 
 			}
@@ -708,7 +720,7 @@ delay_pinch();
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 
 			}
@@ -737,7 +749,7 @@ delay_pinch();
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 
 			}
@@ -765,7 +777,7 @@ delay_pinch();
 				LED_OFF(LED_DOWN);
 				LED_OFF(LED_UP);
 				anti_pinch();
-				rub_flag=e_dummy_1;
+				rub_flag_anP=e_dummy_1;
 				delay_pinch();
 
 			}
@@ -781,7 +793,7 @@ delay_pinch();
 			LED_OFF(LED8);
     		LED_OFF(LED9);
     		LED_OFF(LED10);
-    		rub_flag_2=e_dummy_2_2;
+    		rub_flag_aUP=e_dummy_4;
     		rub_cnt=1;
     		delay();	
 			}

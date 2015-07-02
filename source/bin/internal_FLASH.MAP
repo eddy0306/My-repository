@@ -55,17 +55,17 @@ Link map of __start
       5] Task_10ms (func,global) found in dummy.o 
        6] @LOCAL@Task_10ms__Fv@luw_Counter (object,local) found in dummy.o 
        6] @LOCAL@Task_10ms__Fv@luw_Counter_1@0 (object,local) found in dummy.o 
-       6] rub_flag (object,global) found in dummy.o 
+       6] rub_flag_anP (object,global) found in dummy.o 
        6] rub_cnt (object,global) found in dummy.o 
        6] anti_pinch (func,global) found in dummy.o 
-        7] @72 (object,local) found in dummy.o 
+        7] @73 (object,local) found in dummy.o 
         7] delay (func,global) found in dummy.o 
          8] @LOCAL@delay__Fv@j (object,local) found in dummy.o 
          8] @LOCAL@delay__Fv@k@0 (object,local) found in dummy.o 
-       6] rub_flag_2 (object,global) found in dummy.o 
+       6] rub_flag_aUP (object,global) found in dummy.o 
        6] manual_mode (func,global) found in dummy.o 
        6] auto_up (func,global) found in dummy.o 
-        7] @127 (object,local) found in dummy.o 
+        7] @128 (object,local) found in dummy.o 
         7] delay_pinch (func,global) found in dummy.o 
          8] @LOCAL@delay_pinch__Fv@j (object,local) found in dummy.o 
          8] @LOCAL@delay_pinch__Fv@k@0 (object,local) found in dummy.o 
@@ -207,11 +207,11 @@ Code folded in file: Linker Generated Symbol File
     3] .ivor_branch_table (section,local) found in ivor_branch_table.o 
     3] .ivor_branch_table.24 (notype,local) found in ivor_branch_table.o 
     3] .text (section,local) found in main.o 
-    3] .text.41 (notype,local) found in main.o 
+    3] .text.42 (notype,local) found in main.o 
     3] .text (section,local) found in pll.o 
     3] .text.23 (notype,local) found in pll.o 
     3] .text (section,local) found in dummy.o 
-    3] .text.191 (notype,local) found in dummy.o 
+    3] .text.192 (notype,local) found in dummy.o 
     3] .text (section,local) found in PIT.o 
     3] .text.44 (notype,local) found in PIT.o 
     3] .text (section,local) found in GPIO.o 
@@ -313,7 +313,7 @@ Code folded in file: Linker Generated Symbol File
   00000172 000004 00002172 000008a2  2 Function1 	main.o 
   00000176 000050 00002176 000008a6  2 main 	main.o 
   000001c6 00004a 000021c6 000008f6  2 BackgroundSubsystemTasks 	main.o 
-  00000210 000000 00002210 00000940  1 .text.41 	main.o 
+  00000210 000000 00002210 00000940  1 .text.42 	main.o 
   00000210 000088 00002210 00000940  1 .text 	pll.o 
   00000210 000088 00002210 00000940  2 initModesAndClock 	pll.o 
   UNUSED   00000c ........ ........    initPeriClkGen pll.o 
@@ -327,7 +327,7 @@ Code folded in file: Linker Generated Symbol File
   00001742 000804 00003742 00001e72  2 manual_mode 	dummy.o 
   00001f46 000036 00003f46 00002676  2 delay 	dummy.o 
   00001f7c 00003a 00003f7c 000026ac  2 delay_pinch 	dummy.o 
-  00001fb6 000000 00003fb6 000026e6  1 .text.191 	dummy.o 
+  00001fb6 000000 00003fb6 000026e6  1 .text.192 	dummy.o 
   00001fb6 0000d4 00003fb6 000026e6  1 .text 	PIT.o 
   00001fb6 00000a 00003fb6 000026e6  2 PIT_device_init 	PIT.o 
   00001fc0 00005e 00003fc0 000026f0  2 PIT_channel_configure 	PIT.o 
@@ -514,8 +514,8 @@ extabindex section layout
   address  Size   address  offset
   ---------------------------------
   00000000 000060 40001340 00003000  1 .data 	dummy.o 
-  00000000 000030 40001340 00003000  4 @72 	dummy.o 
-  00000030 000030 40001370 00003030  4 @127 	dummy.o 
+  00000000 000030 40001340 00003000  4 @73 	dummy.o 
+  00000030 000030 40001370 00003030  4 @128 	dummy.o 
 
 
 .sdata section layout
@@ -547,8 +547,8 @@ extabindex section layout
   0000001c 000004 400013cc 0000308c  4 @LOCAL@delay__Fv@k@0 	dummy.o 
   00000020 000004 400013d0 00003090  4 @LOCAL@delay_pinch__Fv@j 	dummy.o 
   00000024 000004 400013d4 00003094  4 @LOCAL@delay_pinch__Fv@k@0 	dummy.o 
-  00000028 000001 400013d8 00003098  1 rub_flag 	dummy.o 
-  00000029 000001 400013d9 00003099  1 rub_flag_2 	dummy.o 
+  00000028 000001 400013d8 00003098  1 rub_flag_anP 	dummy.o 
+  00000029 000001 400013d9 00003099  1 rub_flag_aUP 	dummy.o 
   0000002c 000004 400013dc 0000309c  4 rps_TaskPtr 	dummy.o 
 
 
@@ -593,12 +593,12 @@ Memory map:
                .sdata2 400013e0 00000000 00003070 00004870 00004870          0
                 .sbss2 400013e0 00000000 00003070 00004870 00004870          0
                   .bss 400013e0 00000020 00003070 00004870 00004870          0
-      .PPC.EMB.apuinfo 00006768 00000000 000097e0 0000afd8 0000afd8          0
+      .PPC.EMB.apuinfo 0000677c 00000000 000097f0 0000afec 0000afec          0
          .debug_abbrev          0000014d 00003070
-           .debug_info          00001cd4 000031bd
-           .debug_line          00002e70 00004e91
-            .debug_loc          0000061e 00007d01
-       .debug_pubnames          0000057c 0000831f
+           .debug_info          00001cda 000031bd
+           .debug_line          00002e70 00004e97
+            .debug_loc          0000061e 00007d07
+       .debug_pubnames          00000582 00008325
 
 
 Linker generated symbols:
